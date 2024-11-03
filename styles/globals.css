@@ -1,72 +1,116 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Passion+One:wght@400;700;900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 
+* {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+html,
 body {
-  font-family: Arial, Helvetica, sans-serif;
+    padding: 0;
+    margin: 0;
 }
 
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 10% 3.9%;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
-    --radius: 0.5rem;
+/* styles for not-found page */
+#notfound {
+    position: relative;
+    height: 100vh;
   }
-  .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+  
+  #notfound .notfound {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
   }
-}
+  
+  .notfound {
+    max-width: 710px;
+    width: 100%;
+    padding-left: 190px;
+    line-height: 1.4;
+  }
+  
+  .notfound .notfound-404 {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 150px;
+    height: 150px;
+  }
+  
+  .notfound .notfound-404 h1 {
+    font-family: 'Passion One', cursive;
+    color: #00b5c3;
+    font-size: 150px;
+    letter-spacing: 15.5px;
+    margin: 0px;
+    font-weight: 900;
+    display: flex;
+    position: absolute;
+    width: max-content;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+  }
+  
+  .notfound h2 {
+    font-family: 'Raleway', sans-serif;
+    color: #292929;
+    font-size: 28px;
+      font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    margin-top: 0;
+  }
+  
+  .notfound p {
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  .notfound a {
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+    text-decoration: none;
+    text-transform: uppercase;
+    background: #fff;
+    display: inline-block;
+    padding: 15px 30px;
+    border-radius: 40px;
+    color: #292929;
+    font-weight: 700;
+    -webkit-box-shadow: 0px 4px 15px -5px rgba(0, 0, 0, 0.3);
+            box-shadow: 0px 4px 15px -5px rgba(0, 0, 0, 0.3);
+    -webkit-transition: 0.2s all;
+    transition: 0.2s all;
+  }
+  
+  .notfound a:hover {
+    color: #fff;
+    background-color: #00b5c3;
+  }
+  
+  @media only screen and (max-width: 480px) {
+    .notfound {
+      text-align: center;
+    }
+    .notfound .notfound-404 {
+      position: relative;
+      width: 100%;
+      margin-bottom: 15px;
+    }
+    .notfound {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+  }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import "../styles/tailwind.css";
 import "../styles/globals.css";
 
 export const metadata: Metadata = {
@@ -19,6 +20,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        {/* Preconnect to Google Fonts */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      </head>
       <body>
         {children}
       </body>
