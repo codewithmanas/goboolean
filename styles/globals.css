@@ -43,7 +43,8 @@ body {
   
   .notfound .notfound-404 h1 {
     font-family: 'Passion One', cursive;
-    color: #00b5c3;
+    /* color: #00b5c3; */
+    color: #fff;
     font-size: 150px;
     letter-spacing: 15.5px;
     margin: 0px;
@@ -60,7 +61,8 @@ body {
   
   .notfound h2 {
     font-family: 'Raleway', sans-serif;
-    color: #292929;
+    /* color: #292929; */
+    color: #fff;
     font-size: 28px;
       font-weight: 700;
     text-transform: uppercase;
@@ -74,7 +76,7 @@ body {
     font-weight: 400;
     margin-top: 0;
     margin-bottom: 15px;
-    color: #333;
+    /* color: #333; */
   }
   
   .notfound a {
@@ -96,7 +98,9 @@ body {
   
   .notfound a:hover {
     color: #fff;
-    background-color: #00b5c3;
+    /* background-color: #00b5c3; */
+    /* background-color: #0b44c9; */
+    background-color: #0c50ec;
   }
   
   @media only screen and (max-width: 480px) {
