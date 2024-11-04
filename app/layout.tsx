@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "../styles/tailwind.css";
 import "../styles/globals.css";
-// import Script from "next/script";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "GoBoolean",
@@ -26,8 +26,25 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
 
+        {/* Google tag (gtag.js) */}
+        <Script
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=G-VG2TJ6N395"
+        />
+
+        {/* Google Analytics Integration */}
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', 'G-VG2TJ6N395');
+          `}
+        </Script>
+
         {/* MS Clarity Integration */}
-      {/* <Script strategy="beforeInteractive" id="ms-clarity">
+      <Script strategy="beforeInteractive" id="ms-clarity">
         {`
           (function(c,l,a,r,i,t,y){
               c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -35,7 +52,7 @@ export default function RootLayout({
               y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
           })(window, document, "clarity", "script", "osw4s6wgxo");
         `}
-      </Script> */}
+      </Script>
       </head>
       <body>
         {children}
