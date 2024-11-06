@@ -11,20 +11,37 @@ const InteractiveQuiz = () => {
     const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null)
     const [score, setScore] = useState(0)
     const [quizCompleted, setQuizCompleted] = useState(false)
+    const [askedQuestions, setAskedQuestions] = useState(quizQuestions)
 
     const [mounted, setMounted] = useState(false);
 
+    // Function to randomly select 5 elements
+    function getRandomElements(arr: { question: string; options: string[]; correctAnswer: number; }[], numElements: number | undefined) {
+      // Shuffle the array
+      const shuffled = [...arr].sort(() => Math.random() - 0.5);
+      
+      // Select the first 'numElements' elements from the shuffled array
+      return shuffled.slice(0, numElements);
+    }
+
+
     useEffect(() => {
       setMounted(true);
+
+      const generatedQuestions = getRandomElements(quizQuestions, 5);
+      // console.log("generatedQuestions", generatedQuestions);
+
+        setAskedQuestions(generatedQuestions);
+
     }, []);
   
     // Function to handle answer submit
     const handleAnswerSubmit = () => {
       if (selectedAnswer !== null) {
-        if (selectedAnswer === quizQuestions[currentQuestion].correctAnswer) {
+        if (selectedAnswer === askedQuestions[currentQuestion].correctAnswer) {
           setScore(score + 1)
         }
-        if (currentQuestion < quizQuestions.length - 1) {
+        if (currentQuestion < askedQuestions.length - 1) {
           setCurrentQuestion(currentQuestion + 1)
           setSelectedAnswer(null)
         } else {
@@ -55,7 +72,7 @@ const InteractiveQuiz = () => {
           <CardContent>
             {!quizCompleted ? (
               <>
-                <p className="mb-4 text-lg">{quizQuestions[currentQuestion].question}</p>
+                <p className="mb-4 text-lg">{askedQuestions[currentQuestion].question}</p>
                 <RadioGroup
                   value={selectedAnswer !== null ? selectedAnswer.toString() : ''}
                   onValueChange={(value) => setSelectedAnswer(parseInt(value))}
@@ -64,10 +81,10 @@ const InteractiveQuiz = () => {
                 >
                   
                   <span id="quiz-question-label" className="sr-only">
-                    {quizQuestions[currentQuestion].question}
+                    {askedQuestions[currentQuestion].question}
                   </span>
 
-                  {quizQuestions[currentQuestion].options.map((option, index) => (
+                  {askedQuestions[currentQuestion].options.map((option, index) => (
                     <div key={index} className="flex items-center space-x-2">
                       <RadioGroupItem
                           value={index.toString()} 
@@ -90,12 +107,12 @@ const InteractiveQuiz = () => {
                   className="mt-4 bg-blue-500 hover:bg-blue-600"
                   disabled={selectedAnswer === null}
                 >
-                  {currentQuestion < quizQuestions.length - 1 ? "Next Question" : "Finish Quiz"}
+                  {currentQuestion < askedQuestions.length - 1 ? "Next Question" : "Finish Quiz"}
                 </Button>
               </>
             ) : (
               <div>
-                <p className="mb-4 text-lg">Quiz completed! Your score: {score}/{quizQuestions.length}</p>
+                <p className="mb-4 text-lg">Quiz completed! Your score: {score}/{askedQuestions.length}</p>
                 <Button
                   type="button"
                   aria-label='Try Again' 
