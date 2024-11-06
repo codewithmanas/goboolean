@@ -4,8 +4,20 @@ import InteractiveQuiz from "./InteractiveQuiz";
 
 const ElegantComingSoonV2 = () => {
   const [mounted, setMounted] = useState(false);
+  const [circles, setCircles] = useState([{id: 0, width: 0, height: 0, left: 50, top: 50, animationDelay: "0s"}]);
 
   useEffect(() => {
+    const generatedCircles = [...Array(5)].map((_, i) => ({
+        id: i,
+        width: Math.random() * 300 + 50,
+        height: Math.random() * 300 + 50,
+        left: Math.random() * 100,
+        top: Math.random() * 100,
+        animationDelay: `${i * 0.5}s`,
+      }));
+
+      setCircles(generatedCircles);
+
     setMounted(true);
   }, []);
   return (
@@ -13,17 +25,18 @@ const ElegantComingSoonV2 = () => {
         <div className="min-h-screen flex flex-col items-center justify-center p-4 relative overflow-hidden">
         {/* Animated background shapes */}
         <div className="absolute inset-0 overflow-hidden">
-            {[...Array(5)].map((_, i) => (
+            {circles.map(({ id, width, height, left, top, animationDelay }) => (
             <div
-                key={i}
+                key={id}
                 className="absolute rounded-full bg-blue-500 opacity-10 animate-float"
                 style={{
-                width: `${Math.random() * 300 + 50}px`,
-                height: `${Math.random() * 300 + 50}px`,
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${i * 0.5}s`,
-                }}
+                    width: `${width}px`,
+                    height: `${height}px`,
+                    left: `${left}%`,
+                    top: `${top}%`,
+                    animationDelay,
+                    transitionDelay: animationDelay,
+                  }}
             />
             ))}
         </div>
