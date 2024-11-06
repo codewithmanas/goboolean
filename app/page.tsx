@@ -1,12 +1,10 @@
-// import ComingSoon from "@/features/ComingSoon";
-import ElegantComingSoon from "@/features/ElegantComingSoon";
+
+import ElegantComingSoonV2 from "@/features/ElegantComingSoonV2";
 
 export default function Home() {
   return (
     <div>
-      {/* <ComingSoon /> */}
-      <ElegantComingSoon />
-
+      <ElegantComingSoonV2 />
     </div>
   );
 }
