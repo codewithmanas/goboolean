@@ -73,7 +73,9 @@ const InteractiveQuiz = () => {
                           value={index.toString()} 
                           id={`option-${index}`}
                           aria-labelledby={`option-label-${index}`}
+                          className="w-5 h-5 border-2 border-gray-400 rounded-full checked:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
                       />
+
                       <Label
                         id={`option-label-${index}`}
                         htmlFor={`option-${index}`} 
