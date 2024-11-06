@@ -4,7 +4,7 @@ import "../styles/globals.css";
 // import Script from "next/script";
 
 export const metadata: Metadata = {
-  title: "GoBoolean",
+  title: "GoBoolean - A Platform To Learn Web Development, Programming, AI and More.",
   description: "A Platform To Learn Web Development, Programming, AI and More.",
   icons: {
     icon: [
