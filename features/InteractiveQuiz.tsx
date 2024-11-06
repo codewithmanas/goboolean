@@ -18,6 +18,7 @@ const InteractiveQuiz = () => {
       setMounted(true);
     }, []);
   
+    // Function to handle answer submit
     const handleAnswerSubmit = () => {
       if (selectedAnswer !== null) {
         if (selectedAnswer === quizQuestions[currentQuestion].correctAnswer) {
@@ -32,6 +33,7 @@ const InteractiveQuiz = () => {
       }
     }
   
+    // Function to reset the quiz
     const resetQuiz = () => {
       setCurrentQuestion(0)
       setSelectedAnswer(null)
@@ -55,18 +57,33 @@ const InteractiveQuiz = () => {
               <>
                 <p className="mb-4 text-lg">{quizQuestions[currentQuestion].question}</p>
                 <RadioGroup
-                  value={selectedAnswer?.toString()}
+                  value={selectedAnswer !== null ? selectedAnswer.toString() : ''}
                   onValueChange={(value) => setSelectedAnswer(parseInt(value))}
                   className="space-y-2"
+                  aria-labelledby="quiz-question-label"
                 >
+                  
+                  <span id="quiz-question-label" className="sr-only">
+                    {quizQuestions[currentQuestion].question}
+                  </span>
+
                   {quizQuestions[currentQuestion].options.map((option, index) => (
                     <div key={index} className="flex items-center space-x-2">
-                      <RadioGroupItem value={index.toString()} id={`option-${index}`} />
-                      <Label htmlFor={`option-${index}`} className="text-white text-left">{option}</Label>
+                      <RadioGroupItem
+                          value={index.toString()} 
+                          id={`option-${index}`}
+                          aria-labelledby={`option-label-${index}`}
+                      />
+                      <Label
+                        id={`option-label-${index}`}
+                        htmlFor={`option-${index}`} 
+                        className="text-white text-left">{option}</Label>
                     </div>
                   ))}
                 </RadioGroup>
-                <Button 
+                <Button
+                  type="button"
+                  aria-label='Submit Answer' 
                   onClick={handleAnswerSubmit} 
                   className="mt-4 bg-blue-500 hover:bg-blue-600"
                   disabled={selectedAnswer === null}
@@ -77,7 +94,11 @@ const InteractiveQuiz = () => {
             ) : (
               <div>
                 <p className="mb-4 text-lg">Quiz completed! Your score: {score}/{quizQuestions.length}</p>
-                <Button onClick={resetQuiz} className="bg-blue-500 hover:bg-blue-600">
+                <Button
+                  type="button"
+                  aria-label='Try Again' 
+                  onClick={resetQuiz} 
+                  className="bg-blue-500 hover:bg-blue-600">
                   Try Again
                 </Button>
               </div>
