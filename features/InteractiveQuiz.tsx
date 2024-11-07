@@ -13,7 +13,14 @@ const InteractiveQuiz = () => {
     const [quizCompleted, setQuizCompleted] = useState(false)
     const [askedQuestions, setAskedQuestions] = useState(quizQuestions)
     const [mounted, setMounted] = useState(false);
-    const noOfAskedQuestions = 5;
+    const [isCorrect, setIsCorrect] = useState(false)
+    const [answerChecked, setAnswerChecked] = useState(false)
+
+    // console.log("isCorrect", isCorrect);
+    // console.log("answerChecked", answerChecked);
+    // console.log("isCorrect", isCorrect);
+
+    const noOfAskedQuestions = 5; // Number of questions to ask
 
 
     // Function to randomly select 'numElements' elements from the array
@@ -40,16 +47,24 @@ const InteractiveQuiz = () => {
       setAskedQuestions(generatedQuestions);
 
     }, []);
+
+    // Function to check the answer
+    const checkAnswer = () => {
+      if (selectedAnswer !== null) {
+        const correct = selectedAnswer === askedQuestions[currentQuestion].correctAnswer
+        setIsCorrect(correct)
+        setAnswerChecked(true)
+      }
+    }
   
     // Function to handle answer submit
     const handleAnswerSubmit = () => {
       if (selectedAnswer !== null) {
-        if (selectedAnswer === askedQuestions[currentQuestion].correctAnswer) {
-          setScore(score + 1)
-        }
-        if (currentQuestion < askedQuestions.length - 1) {
+        setScore(score + (isCorrect ? 1 : 0))
+        if (currentQuestion < quizQuestions.length - 1) {
           setCurrentQuestion(currentQuestion + 1)
           setSelectedAnswer(null)
+          setAnswerChecked(false)
         } else {
           setQuizCompleted(true)
         }
@@ -62,6 +77,8 @@ const InteractiveQuiz = () => {
       setSelectedAnswer(null)
       setScore(0)
       setQuizCompleted(false)
+      setAnswerChecked(false)
+      setIsCorrect(false)
     }
   
 
@@ -81,7 +98,7 @@ const InteractiveQuiz = () => {
                 <p className="mb-4 text-lg">{currentQuestion + 1}/{noOfAskedQuestions}. {askedQuestions[currentQuestion].question}</p>
                 <RadioGroup
                   value={selectedAnswer !== null ? selectedAnswer.toString() : ''}
-                  onValueChange={(value) => setSelectedAnswer(parseInt(value))}
+                  onValueChange={(value) => !answerChecked && setSelectedAnswer(parseInt(value))}
                   className="space-y-2"
                   aria-labelledby="quiz-question-label"
                 >
@@ -93,28 +110,61 @@ const InteractiveQuiz = () => {
                   {askedQuestions[currentQuestion].options.map((option, index) => (
                     <div key={index} className="flex items-center space-x-2">
                       <RadioGroupItem
-                          value={index.toString()} 
+                          value={index.toString()}
+                          disabled={answerChecked}
                           id={`option-${index}`}
                           aria-labelledby={`option-label-${index}`}
-                          className="w-5 h-5 border-2 border-gray-400 rounded-full checked:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          // className={"w-5 h-5 border-2 border-gray-400 rounded-full checked:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"}
+                          className={answerChecked ? (
+                            index === askedQuestions[currentQuestion].correctAnswer
+                              ? "text-green-500 border-green-500 w-5 h-5 border-2 rounded-full checked:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                              : index === selectedAnswer
+                                ? "text-red-500 border-red-500 w-5 h-5 border-2 rounded-full checked:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                : "w-5 h-5 border-2 border-gray-400 rounded-full checked:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          ) : "w-5 h-5 border-2 border-gray-400 rounded-full checked:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"}
                       />
 
                       <Label
                         id={`option-label-${index}`}
                         htmlFor={`option-${index}`} 
-                        className="text-white text-left">{option}</Label>
+                        // className="text-white text-left"
+                        className={`text-white text-left ${
+                          answerChecked
+                            ? index === askedQuestions[currentQuestion].correctAnswer
+                              ? "text-green-500"
+                              : index === selectedAnswer
+                                ? "text-red-500"
+                                : ""
+                            : ""
+                        }`}
+                        >{option}</Label>
                     </div>
                   ))}
                 </RadioGroup>
-                <Button
-                  type="button"
-                  aria-label='Submit Answer' 
-                  onClick={handleAnswerSubmit} 
-                  className="mt-4 bg-blue-500 hover:bg-blue-600"
-                  disabled={selectedAnswer === null}
-                >
-                  {currentQuestion < askedQuestions.length - 1 ? "Next Question" : "Finish Quiz"}
-                </Button>
+                <div className="mt-4 space-x-2">
+                  <Button 
+                    onClick={checkAnswer} 
+                    className="bg-green-500 hover:bg-green-600"
+                    disabled={selectedAnswer === null || answerChecked}
+                  >
+                    Check Answer
+                  </Button>
+
+                  <Button
+                    type="button"
+                    aria-label='Submit Answer' 
+                    onClick={handleAnswerSubmit} 
+                    className="mt-4 bg-blue-500 hover:bg-blue-600"
+                    disabled={selectedAnswer === null}
+                  >
+                    {currentQuestion < askedQuestions.length - 1 ? "Next Question" : "Finish Quiz"}
+                  </Button>
+                </div>
+                {answerChecked && (
+                  <p className={`mt-4 text-lg ${isCorrect ? "text-green-500" : "text-red-500"}`}>
+                    {isCorrect ? "Correct!" : "Incorrect. Try again!"}
+                  </p>
+                )}
               </>
             ) : (
               <div>
