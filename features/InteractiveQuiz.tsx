@@ -12,9 +12,9 @@ const InteractiveQuiz = () => {
     const [score, setScore] = useState(0)
     const [quizCompleted, setQuizCompleted] = useState(false)
     const [askedQuestions, setAskedQuestions] = useState(quizQuestions)
-
     const [mounted, setMounted] = useState(false);
 
+    // TODO: This function does not give fully random elements, needs optimization
     // Function to randomly select 5 elements
     function getRandomElements(arr: { question: string; options: string[]; correctAnswer: number; }[], numElements: number | undefined) {
       // Shuffle the array
@@ -29,9 +29,7 @@ const InteractiveQuiz = () => {
       setMounted(true);
 
       const generatedQuestions = getRandomElements(quizQuestions, 5);
-      // console.log("generatedQuestions", generatedQuestions);
-
-        setAskedQuestions(generatedQuestions);
+      setAskedQuestions(generatedQuestions);
 
     }, []);
   
