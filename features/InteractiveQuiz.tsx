@@ -13,22 +13,30 @@ const InteractiveQuiz = () => {
     const [quizCompleted, setQuizCompleted] = useState(false)
     const [askedQuestions, setAskedQuestions] = useState(quizQuestions)
     const [mounted, setMounted] = useState(false);
+    const noOfAskedQuestions = 5;
 
-    // TODO: This function does not give fully random elements, needs optimization
-    // Function to randomly select 5 elements
-    function getRandomElements(arr: { question: string; options: string[]; correctAnswer: number; }[], numElements: number | undefined) {
-      // Shuffle the array
-      const shuffled = [...arr].sort(() => Math.random() - 0.5);
-      
-      // Select the first 'numElements' elements from the shuffled array
-      return shuffled.slice(0, numElements);
+
+    // Function to randomly select 'numElements' elements from the array
+    function getRandomElements(arr: { question: string; options: string[]; correctAnswer: number; }[], numElements: number) {
+      const selectedElements = [];
+      const usedIndices = new Set();
+  
+      while (selectedElements.length < numElements) {
+        const randomIndex = Math.floor(Math.random() * arr.length);
+        if (!usedIndices.has(randomIndex)) {
+          selectedElements.push(arr[randomIndex]);
+          usedIndices.add(randomIndex);
+        }
+      }
+  
+      return selectedElements;
     }
 
 
     useEffect(() => {
       setMounted(true);
 
-      const generatedQuestions = getRandomElements(quizQuestions, 5);
+      const generatedQuestions = getRandomElements(quizQuestions, noOfAskedQuestions);
       setAskedQuestions(generatedQuestions);
 
     }, []);
@@ -70,7 +78,7 @@ const InteractiveQuiz = () => {
           <CardContent>
             {!quizCompleted ? (
               <>
-                <p className="mb-4 text-lg">{askedQuestions[currentQuestion].question}</p>
+                <p className="mb-4 text-lg">{currentQuestion + 1}/{noOfAskedQuestions}. {askedQuestions[currentQuestion].question}</p>
                 <RadioGroup
                   value={selectedAnswer !== null ? selectedAnswer.toString() : ''}
                   onValueChange={(value) => setSelectedAnswer(parseInt(value))}
