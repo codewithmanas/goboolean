@@ -44,6 +44,13 @@ const InteractiveQuiz = () => {
 
     }, []);
 
+    useEffect(() => {
+      if (quizCompleted) {
+        const generatedQuestions = getRandomElements(quizQuestions, noOfAskedQuestions);
+        setAskedQuestions(generatedQuestions);
+      }
+    }, [quizCompleted]);
+
     // Function to check the answer
     const checkAnswer = () => {
       if (selectedAnswer !== null) {
@@ -143,7 +150,7 @@ const InteractiveQuiz = () => {
                     </div>
                   ))}
                 </RadioGroup>
-                <div className="mt-4 space-x-2">
+                <div className="mt-4 flex flex-col gap-4 items-center sm:flex-row sm:justify-center">
                   <Button 
                     onClick={checkAnswer} 
                     className="bg-green-500 hover:bg-green-600"
@@ -156,7 +163,7 @@ const InteractiveQuiz = () => {
                     type="button"
                     aria-label='Submit Answer' 
                     onClick={handleAnswerSubmit} 
-                    className="mt-4 bg-blue-500 hover:bg-blue-600"
+                    className="bg-blue-500 hover:bg-blue-600"
                     disabled={selectedAnswer === null || !answerChecked}
                   >
                     {currentQuestion < askedQuestions.length - 1 ? "Next Question" : "Finish Quiz"}
@@ -164,7 +171,7 @@ const InteractiveQuiz = () => {
                 </div>
                 {answerChecked && (
                   <p className={`mt-4 text-lg ${isCorrect ? "text-green-500" : "text-red-500"}`}>
-                    {isCorrect ? "Correct!" : "Incorrect. Try again!"}
+                    {isCorrect ? "Correct!" : "Incorrect!"}
                   </p>
                 )}
               </>
