@@ -118,3 +118,14 @@ body {
     }
   }
 
+  /* Blog Content Styles */
+  .prose pre {
+    background-color: #0b122a;
+    margin-top: 1.5rem;
+  }
+
+  .prose h2 {
+    font-size: 2rem;
+    margin-top: 1.5rem;
+  }
+
