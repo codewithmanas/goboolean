@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "../styles/tailwind.css";
 import "../styles/globals.css";
-// import Script from "next/script";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "GoBoolean - A Platform To Learn Web Development, Programming, AI and More",
@@ -71,7 +71,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
 
         {/* <!-- Google Tag Manager --> */}
-        {/* <Script id="google-tag-manager">
+        <Script id="google-tag-manager">
           {`
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
             new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -79,17 +79,17 @@ export default function RootLayout({
             'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
             })(window,document,'script','dataLayer','GTM-T33D74XD');
           `}
-        </Script> */}
+        </Script>
         {/* <!-- End Google Tag Manager --> */}
 
         {/* Google tag (gtag.js) */}
-        {/* <Script
+        <Script
           strategy="afterInteractive"
           src="https://www.googletagmanager.com/gtag/js?id=G-VG2TJ6N395"
-        /> */}
+        />
 
         {/* Google Analytics Integration */}
-        {/* <Script id="google-analytics" strategy="afterInteractive">
+        <Script id="google-analytics" strategy="afterInteractive">
           {`
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
@@ -97,10 +97,10 @@ export default function RootLayout({
 
               gtag('config', 'G-VG2TJ6N395');
           `}
-        </Script> */}
+        </Script>
 
         {/* MS Clarity Integration */}
-        {/* <Script strategy="beforeInteractive" id="ms-clarity">
+        <Script strategy="beforeInteractive" id="ms-clarity">
           {`
             (function(c,l,a,r,i,t,y){
                 c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -108,17 +108,17 @@ export default function RootLayout({
                 y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
             })(window, document, "clarity", "script", "osw4s6wgxo");
           `}
-        </Script> */}
+        </Script>
       </head>
       <body>
         {/* Google Tag Manager (noscript) */}
-        {/* <noscript>
+        <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-T33D74XD"
             height="0" width="0" 
             style={{display:"none",visibility:"hidden"}}
           ></iframe>
-        </noscript> */}
+        </noscript>
         {/* End Google Tag Manager (noscript) */}
         {children}
       </body>
