@@ -4,13 +4,57 @@ import "../styles/globals.css";
 // import Script from "next/script";
 
 export const metadata: Metadata = {
-  title: "GoBoolean - A Platform To Learn Web Development, Programming, AI and More.",
-  description: "A Platform To Learn Web Development, Programming, AI and More.",
+  title: "GoBoolean - A Platform To Learn Web Development, Programming, AI and More",
+  description: "GoBoolean is an educational platform that offers tutorials and resources on Web Development, Programming, Artificial Intelligence, and more to help you excel in the tech industry.",
+  keywords: [
+    "web development",
+    "programming",
+    "AI",
+    "GoBoolean",
+    "tech learning platform",
+    "coding quizzes",
+    "project ideas"
+  ],
+  authors: [{ name: "GoBoolean Team" }],
   icons: {
     icon: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
-      { url: "/favicon.png", type: "image/png", sizes: "32x32" },
+      { url: "/icon-dark.svg", type: "image/svg+xml" },
+      { url: "/icon-dark.png", type: "image/png", sizes: "32x32" },
     ],
+    shortcut: "/icon-dark.png",
+  },
+  openGraph: {
+    title: "GoBoolean - A Platform To Learn Web Development, Programming, AI and More",
+    description: "Join GoBoolean to learn the latest in Web Development, Programming, and AI. Start your journey towards tech mastery today!",
+    url: "https://goboolean.in",
+    siteName: "GoBoolean",
+    images: [
+      {
+        url: "/icon-dark.png",
+        width: 1200,
+        height: 630,
+        alt: "GoBoolean Logo",
+      }
+    ],
+    type: "website",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "GoBoolean - A Platform To Learn Web Development, Programming, AI and More",
+    description: "Join GoBoolean to explore web development, programming, AI, and tech tips.",
+    images: ["/icon-dark.png"],
+    site: "@goboolean",
+    creator: "@goboolean",
+  },
+  manifest: "/site.webmanifest",
+  robots: {
+    index: true,
+    follow: true,
+  },
+
+  alternates: {
+    canonical: "https://goboolean.in",
   },
 };
 
