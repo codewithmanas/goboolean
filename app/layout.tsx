@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "../styles/tailwind.css";
 import "../styles/globals.css";
 // import Script from "next/script";
+import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
   title: "GoBoolean - A Platform To Learn Web Development, Programming, AI and More.",
@@ -77,6 +78,7 @@ export default function RootLayout({
         </noscript> */}
         {/* End Google Tag Manager (noscript) */}
         {children}
+        <Toaster />
       </body>
     </html>
   );

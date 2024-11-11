@@ -19,10 +19,16 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Code2, Search, ChevronRight, Menu } from "lucide-react";
+import {
+  Code2,
+  Search,
+  ChevronRight,
+  Award,
+  Clock,
+  BarChart,
+  Menu,
+} from "lucide-react";
 import Link from "next/link";
-import { blogPosts } from "@/constants/blog-posts";
-import { useRouter } from "next/navigation";
 
 const fadeIn = {
   initial: { opacity: 0, y: 20 },
@@ -38,6 +44,53 @@ const stagger = {
   },
 };
 
+const quizzes = [
+  {
+    id: 1,
+    title: "JavaScript Fundamentals",
+    description:
+      "Test your knowledge of JavaScript basics, including variables, functions, and control flow.",
+    difficulty: "Beginner",
+    questions: 20,
+    timeLimit: "30 minutes",
+  },
+  {
+    id: 2,
+    title: "Advanced React Concepts",
+    description:
+      "Challenge yourself with questions on React hooks, context, and performance optimization.",
+    difficulty: "Advanced",
+    questions: 15,
+    timeLimit: "25 minutes",
+  },
+  {
+    id: 3,
+    title: "CSS Layout Mastery",
+    description:
+      "Prove your skills in CSS layout techniques, including flexbox and grid.",
+    difficulty: "Intermediate",
+    questions: 25,
+    timeLimit: "40 minutes",
+  },
+  {
+    id: 4,
+    title: "Python Data Structures",
+    description:
+      "Explore your understanding of Python's built-in data structures and their operations.",
+    difficulty: "Intermediate",
+    questions: 30,
+    timeLimit: "45 minutes",
+  },
+  {
+    id: 5,
+    title: "Web Security Essentials",
+    description:
+      "Test your knowledge of common web security vulnerabilities and best practices.",
+    difficulty: "Advanced",
+    questions: 20,
+    timeLimit: "35 minutes",
+  },
+];
 
 const navItems = [
   {
@@ -58,21 +111,16 @@ const navItems = [
   },
 ];
 
-
-
-export default function BlogListingGridPage() {
+export default function QuizzesPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const router = useRouter();
-
-  const filteredPosts = blogPosts.filter(
-    (post) =>
-      post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      post.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      post.category.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredQuizzes = quizzes.filter(
+    (quiz) =>
+      quiz.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      quiz.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      quiz.difficulty.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
 
   return (
     <div className="min-h-screen bg-blue-950 text-white">
@@ -148,14 +196,14 @@ export default function BlogListingGridPage() {
             className="text-4xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400"
             variants={fadeIn}
           >
-            GoBoolean Blog
+            GoBoolean Quizzes
           </motion.h1>
           <motion.div variants={fadeIn} className="max-w-md mx-auto">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-300" />
               <Input
                 type="text"
-                placeholder="Search blog posts..."
+                placeholder="Search quizzes..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="pl-10 bg-white/10 border-white/20 text-white placeholder:text-white/50"
@@ -166,33 +214,36 @@ export default function BlogListingGridPage() {
             variants={fadeIn}
             className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
           >
-            {filteredPosts.map((post) => (
+            {filteredQuizzes.map((quiz) => (
               <Card
-                key={post.id}
-                // onClick={() => window.open(`/blogs/${post.slug}`, "_blank")}
-                // onClick={() => window.open(`/blogs/blog-one`, "_blank")}
-                onClick={() => router.push(`/blogs/blog-one`)}
+                key={quiz.id}
                 className="bg-white/10 border-white/20 hover:bg-white/20 transition-all duration-300"
               >
                 <CardHeader>
-                  <CardTitle className="text-blue-300">{post.title}</CardTitle>
+                  <CardTitle className="text-xl text-blue-300">
+                    {quiz.title}
+                  </CardTitle>
                   <CardDescription className="text-blue-200">
-                    {post.category} • {post.readTime}
+                    <span className="flex items-center">
+                      <Award className="mr-1 h-4 w-4" /> {quiz.difficulty}
+                    </span>
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-blue-100">{post.description}</p>
-                </CardContent>
-                <CardFooter className="flex justify-between items-center">
-                  <div className="text-sm text-blue-200">
-                    By {post.author} on{" "}
-                    {new Date(post.date).toLocaleDateString()}
+                  <p className="text-blue-100 mb-4">{quiz.description}</p>
+                  <div className="flex justify-between text-sm text-blue-200">
+                    <span className="flex items-center">
+                      <BarChart className="mr-1 h-4 w-4" /> {quiz.questions}{" "}
+                      questions
+                    </span>
+                    <span className="flex items-center">
+                      <Clock className="mr-1 h-4 w-4" /> {quiz.timeLimit}
+                    </span>
                   </div>
-                  <Button
-                    variant="ghost"
-                    className="text-blue-300 hover:text-blue-100 hover:bg-blue-500/20"
-                  >
-                    Read More <ChevronRight className="ml-2 h-4 w-4" />
+                </CardContent>
+                <CardFooter>
+                  <Button className="w-full bg-blue-500 hover:bg-blue-600">
+                    Start Quiz <ChevronRight className="ml-2 h-4 w-4" />
                   </Button>
                 </CardFooter>
               </Card>
@@ -201,7 +252,7 @@ export default function BlogListingGridPage() {
         </motion.div>
       </main>
 
-      <footer className="bg-blue-950/50 py-10 mt-12">
+      <footer className="bg-blue-950/50 py-10 mt-12 px-4">
         <div className="container mx-auto text-center text-sm text-blue-300">
           © {new Date().getFullYear()} goboolean.in All rights reserved.
         </div>
