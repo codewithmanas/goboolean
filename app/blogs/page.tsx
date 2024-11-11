@@ -171,7 +171,8 @@ export default function BlogListingGridPage() {
                 key={post.id}
                 // onClick={() => window.open(`/blogs/${post.slug}`, "_blank")}
                 // onClick={() => window.open(`/blogs/blog-one`, "_blank")}
-                onClick={() => router.push(`/blogs/blog-one`)}
+                // onClick={() => router.push(`/blogs/blog-one`)}
+                onClick={() => router.push(`/blogs/${post.slug}`)}
                 className="bg-white/10 border-white/20 hover:bg-white/20 transition-all duration-300"
               >
                 <CardHeader>

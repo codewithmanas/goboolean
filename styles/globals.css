@@ -122,6 +122,7 @@ body {
   .prose pre {
     background-color: #0b122a;
     margin-top: 1.5rem;
+    overflow-x: auto;
   }
 
   .prose h2 {

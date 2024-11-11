@@ -20,6 +20,14 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
   Code2,
   Search,
   ChevronRight,
@@ -27,8 +35,10 @@ import {
   Clock,
   BarChart,
   Menu,
+  Loader2,
 } from "lucide-react";
 import Link from "next/link";
+import { useToast } from "@/hooks/use-toast";
 
 const fadeIn = {
   initial: { opacity: 0, y: 20 },
@@ -114,6 +124,11 @@ const navItems = [
 export default function QuizzesPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const { toast } = useToast();
 
   const filteredQuizzes = quizzes.filter(
     (quiz) =>
@@ -121,6 +136,27 @@ export default function QuizzesPage() {
       quiz.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
       quiz.difficulty.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const handleQuizStart = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsDialogOpen(true);
+  };
+
+  const handleNotifySubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    // Here you would typically send the email to your backend
+    // Simulate API call
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+    setIsSubmitting(false);
+    toast({
+      title: "Thanks for your interest!",
+      description: "We'll keep you updated on launch of quizzes.",
+    });
+    console.log("Notify email:", email);
+    setEmail("");
+    setIsDialogOpen(false);
+  };
 
   return (
     <div className="min-h-screen bg-blue-950 text-white">
@@ -242,7 +278,7 @@ export default function QuizzesPage() {
                   </div>
                 </CardContent>
                 <CardFooter>
-                  <Button className="w-full bg-blue-500 hover:bg-blue-600">
+                  <Button className="w-full bg-blue-500 hover:bg-blue-600" onClick={handleQuizStart}>
                     Start Quiz <ChevronRight className="ml-2 h-4 w-4" />
                   </Button>
                 </CardFooter>
@@ -251,6 +287,48 @@ export default function QuizzesPage() {
           </motion.div>
         </motion.div>
       </main>
+
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent className="bg-blue-900 text-white">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold text-blue-300">
+              Quizzes Coming Soon!
+            </DialogTitle>
+            <DialogDescription className="text-blue-100">
+              We{`'re`} working hard to bring you exciting coding quizzes. Sign up
+              to be notified when they{`'re`} ready!
+            </DialogDescription>
+          </DialogHeader>
+          <form onSubmit={handleNotifySubmit} className="space-y-4">
+            <Input
+              type="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
+            />
+            <DialogFooter>
+              <Button type="submit" 
+              className="bg-blue-500 hover:bg-blue-600"
+              disabled={isSubmitting}
+              >
+                {isSubmitting ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Submitting...
+              </>
+            ) : (
+              <>
+                {`Notify Me`}{" "}
+                <ChevronRight className="ml-2 h-4 w-4" />
+              </>
+            )}
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
 
       <footer className="bg-blue-950/50 py-10 mt-12 px-4">
         <div className="container mx-auto text-center text-sm text-blue-300">
