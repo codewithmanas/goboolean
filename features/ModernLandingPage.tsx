@@ -286,7 +286,7 @@ export default function ModernLandingPage() {
 
       {/* Footer */}
       <motion.footer
-        className="bg-blue-950/50 py-10"
+        className="bg-blue-950/50 py-4 sm:py-6"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.3 }}
