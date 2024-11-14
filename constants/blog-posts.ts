@@ -1,5 +1,28 @@
 // Mock data for blog posts
-export const blogPosts = [
+export interface BlogPost {
+  id: number;
+  title: string;
+  description: string;
+  author: string;
+  authorAvatar: string;
+  date: string;
+  category: string;
+  readTime: string;
+  coverImage: string;
+  tags: string[];
+  likes: number;
+  comments: {
+    id: number;
+    author: string;
+    content: string;
+    date: string;
+  }[];
+  slug: string;
+  content: string;
+}
+
+
+export const blogPosts: BlogPost[] = [
   {
     id: 1,
     title: "Getting Started with React Hooks",

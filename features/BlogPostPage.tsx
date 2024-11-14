@@ -22,6 +22,7 @@ import {
 // import { Code2, Calendar, Clock, User, Share2, ThumbsUp, Linkedin, Facebook, Twitter, Menu } from "lucide-react";
 import { Code2, Calendar, Clock, User, Menu } from "lucide-react";
 import Link from "next/link";
+import { BlogPost } from "@/constants/blog-posts";
 
 const fadeIn = {
   initial: { opacity: 0, y: 20 },
@@ -54,9 +55,10 @@ const navItems = [
     title: "Community",
     path: "/community",
   },
-];
+]; 
 
-export default function BlogPostPage({blog}) {
+
+export default function BlogPostPage({blog}: {blog: BlogPost}) {
   // const [comment, setComment] = useState("");
   // const [likes, setLikes] = useState(blog.likes || 0);
   // const [isLiked, setIsLiked] = useState(false);
