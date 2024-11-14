@@ -18,9 +18,10 @@ import {
     SheetTitle,
     SheetTrigger,
   } from "@/components/ui/sheet";
-import { Code2, Loader2, BookOpen, Menu } from "lucide-react";
+import { Loader2, BookOpen, Menu } from "lucide-react";
 import Link from "next/link";
 import { useToast } from "@/hooks/use-toast";
+import Image from "next/image";
 // import { useToast } from "@/components/ui/use-toast"
 // import { CustomToast, CustomToastProvider } from './custom-toast'
 
@@ -92,11 +93,15 @@ export default function BlogsComingSoon() {
       <div className="min-h-screen bg-blue-950 text-white">
         <header className="container mx-auto py-6 px-4 flex justify-between items-center">
           <Link href="/" className="flex items-center space-x-2">
-            <Code2 className="h-8 w-8 text-blue-400" />
-            <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
-              GoBoolean
-            </span>
+          <Image src="/icon-dark.svg" alt="GoBoolean" width={32} height={32} />
+          <span 
+            className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400"
+            style={{ fontFamily: "Reem Kufi" }}
+          >
+            GoBoolean
+          </span>
           </Link>
+
           <nav className="hidden md:block">
             <ul className="flex space-x-6">
               {navItems.map((item) => (

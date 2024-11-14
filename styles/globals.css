@@ -118,6 +118,23 @@ body {
     }
   }
 
+/* styles for custom font */
+@font-face {
+  font-family: 'Reem Kufi';
+  src: url('/fonts/ReemKufi-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Optionally, define a fallback font */
+body {
+  font-family: 'Reem Kufi', Arial, sans-serif;
+}
+
+
+
+
+
   /* Blog Content Styles */
   .prose pre {
     background-color: #0b122a;

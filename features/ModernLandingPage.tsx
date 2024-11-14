@@ -14,9 +14,14 @@ import {
 // import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 // import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 // import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Code2, ChevronRight, Menu, Loader2 } from "lucide-react";
+import { 
+  // Code2, 
+  ChevronRight, 
+  Menu, 
+  Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useToast } from "@/hooks/use-toast";
+import Image from "next/image";
 
 const fadeIn = {
   initial: { opacity: 0, y: 20 },
@@ -82,8 +87,13 @@ export default function ModernLandingPage() {
         transition={{ duration: 0.5 }}
       >
         <div className="flex items-center space-x-2">
-          <Code2 className="h-8 w-8 text-blue-400" />
-          <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+          {/* <Code2 className="h-8 w-6 text-blue-400" /> */}
+          <Image src="/icon-dark.svg" alt="GoBoolean" width={32} height={32} />
+
+          <span 
+            className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400"
+            style={{ fontFamily: "Reem Kufi" }}
+          >
             GoBoolean
           </span>
         </div>
@@ -203,7 +213,7 @@ export default function ModernLandingPage() {
         </motion.form>
 
         <motion.ul
-          className="mt-6 flex justify-center space-x-6 text-sm text-blue-300"
+          className="mt-6 flex flex-col sm:flex-row items-center sm:justify-center sm:space-x-6 text-sm text-blue-300"
           variants={stagger}
         >
           {["Exclusive quizzes", "Tech tips", "Project ideas"].map(
@@ -211,7 +221,7 @@ export default function ModernLandingPage() {
               <motion.li
                 key={index}
                 variants={fadeIn}
-                className="flex items-center"
+                className="flex items-center whitespace-nowrap"
               >
                 <span className="mr-2 text-green-400">✓</span> {item}
               </motion.li>
