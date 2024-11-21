@@ -85,7 +85,7 @@ export default function ModernLandingPage() {
           toast.success("Thanks for your interest!, \nWe'll keep you updated on new features and launches.", toastTheme);
           setIsSubmitting(false);
         } else {
-          throw new Error("Something went wrong! \nPlease try again later.");
+          throw new Error("Something went wrong!, Please try again later.");
         }
 
       })

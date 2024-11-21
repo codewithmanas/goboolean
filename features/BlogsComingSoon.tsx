@@ -66,28 +66,46 @@ export default function BlogsComingSoon() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   // const { toast } = useToast();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    setEmail("");
-    
-    toast.success("Thanks for your interest!, \nWe'll keep you updated on new features and launches.", toastTheme);
+// TODO: needs improvement and optimization
+const handlePostRequest = () => {
+  fetch("/api/send", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({email}),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      // Handle the response data
+      if(data?.data) {
+        setEmail("");
+        toast.success("Thanks for your interest!, \nWe'll keep you updated on new features and launches.", toastTheme);
+        setIsSubmitting(false);
 
-    setIsSubmitting(false);
+      } else {
+        throw new Error("Something went wrong!, Please try again later.");
+      }
 
-    // toast({
-    //   title: "Thanks for your interest!",
-    //   description: "We'll notify you when our blog launches.",
-    //   action: (
-    //     <CustomToast
-    //       title="Thanks for your interest!"
-    //       description="We'll notify you when our blog launches."
-    //     />
-    //   ),
-    // });
-  };
+    })
+    .catch((error) => {
+      // Handle errors
+      console.error("Error sending email", error);
+
+      setEmail("");
+      toast.error("Something went wrong! \nPlease try again later.", toastTheme);
+      setIsSubmitting(false);
+    });
+};
+
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setIsSubmitting(true);
+
+  // Here you would typically send the email to your backend
+  handlePostRequest();
+};
+
 
   return (
     // <CustomToastProvider>
