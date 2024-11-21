@@ -69,6 +69,7 @@ export default function ModernLandingPage() {
     // Simulate API call
     await new Promise((resolve) => setTimeout(resolve, 1500));
     setIsSubmitting(false);
+    
     toast({
       title: "Thanks for your interest!",
       description: "We'll keep you updated on new features and launches.",
@@ -195,18 +196,18 @@ export default function ModernLandingPage() {
           />
           <Button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-600 px-8 py-2 text-lg"
+            className="bg-blue-500 hover:bg-blue-600 px-4 py-2 text-lg"
             disabled={isSubmitting}
           >
             {isSubmitting ? (
               <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                <Loader2 className="h-4 w-4 animate-spin" />
                 Submitting...
               </>
             ) : (
               <>
                 {`Sign Up for Updates`}{" "}
-                <ChevronRight className="ml-2 h-4 w-4" />
+                <ChevronRight className="h-4 w-4" />
               </>
             )}
           </Button>
