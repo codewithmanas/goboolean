@@ -20,8 +20,10 @@ import {
   Menu, 
   Loader2 } from "lucide-react";
 import Link from "next/link";
-import { useToast } from "@/hooks/use-toast";
+// import { useToast } from "@/hooks/use-toast";
+import toast from 'react-hot-toast';
 import Image from "next/image";
+import { toastTheme } from "@/constants/toast-theme";
 
 const fadeIn = {
   initial: { opacity: 0, y: 20 },
@@ -61,7 +63,7 @@ export default function ModernLandingPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const { toast } = useToast();
+  // const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -69,11 +71,15 @@ export default function ModernLandingPage() {
     // Simulate API call
     await new Promise((resolve) => setTimeout(resolve, 1500));
     setIsSubmitting(false);
-    
-    toast({
-      title: "Thanks for your interest!",
-      description: "We'll keep you updated on new features and launches.",
-    });
+
+    toast.success("Thanks for your interest!, \nWe'll keep you updated on new features and launches.", toastTheme);
+
+
+
+    // toast({
+    //   title: "Thanks for your interest!",
+    //   description: "We'll keep you updated on new features and launches.",
+    // });
     setEmail("");
   };
 

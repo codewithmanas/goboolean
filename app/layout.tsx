@@ -2,11 +2,14 @@ import type { Metadata } from "next";
 import "../styles/tailwind.css";
 import "../styles/globals.css";
 // import Script from "next/script";
-import { Toaster } from "@/components/ui/toaster"
+// import { Toaster } from "@/components/ui/toaster";
+import { Toaster } from 'react-hot-toast';
 
 export const metadata: Metadata = {
-  title: "GoBoolean - A Platform To Learn Web Development, Programming, AI and More",
-  description: "GoBoolean is an educational platform that offers tutorials and resources on Web Development, Programming, Artificial Intelligence, and more to help you excel in the tech industry.",
+  title:
+    "GoBoolean - A Platform To Learn Web Development, Programming, AI and More",
+  description:
+    "GoBoolean is an educational platform that offers tutorials and resources on Web Development, Programming, Artificial Intelligence, and more to help you excel in the tech industry.",
   keywords: [
     "web development",
     "programming",
@@ -14,7 +17,7 @@ export const metadata: Metadata = {
     "GoBoolean",
     "tech learning platform",
     "coding quizzes",
-    "project ideas"
+    "project ideas",
   ],
   authors: [{ name: "GoBoolean Team" }],
   icons: {
@@ -25,8 +28,10 @@ export const metadata: Metadata = {
     shortcut: "/icon-dark.png",
   },
   openGraph: {
-    title: "GoBoolean - A Platform To Learn Web Development, Programming, AI and More",
-    description: "Join GoBoolean to learn the latest in Web Development, Programming, and AI. Start your journey towards tech mastery today!",
+    title:
+      "GoBoolean - A Platform To Learn Web Development, Programming, AI and More",
+    description:
+      "Join GoBoolean to learn the latest in Web Development, Programming, and AI. Start your journey towards tech mastery today!",
     url: "https://goboolean.in",
     siteName: "GoBoolean",
     images: [
@@ -35,15 +40,17 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: "GoBoolean Logo",
-      }
+      },
     ],
     type: "website",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "GoBoolean - A Platform To Learn Web Development, Programming, AI and More",
-    description: "Join GoBoolean to explore web development, programming, AI, and tech tips.",
+    title:
+      "GoBoolean - A Platform To Learn Web Development, Programming, AI and More",
+    description:
+      "Join GoBoolean to explore web development, programming, AI, and tech tips.",
     images: ["/icon-dark.png"],
     site: "@goboolean",
     creator: "@goboolean",
@@ -69,7 +76,11 @@ export default function RootLayout({
       <head>
         {/* Preconnect to Google Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
 
         {/* <!-- Google Tag Manager --> */}
         {/* <Script id="google-tag-manager">

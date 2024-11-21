@@ -20,8 +20,10 @@ import {
   } from "@/components/ui/sheet";
 import { Loader2, BookOpen, Menu } from "lucide-react";
 import Link from "next/link";
-import { useToast } from "@/hooks/use-toast";
+// import { useToast } from "@/hooks/use-toast";
 import Image from "next/image";
+import { toastTheme } from "@/constants/toast-theme";
+import toast from 'react-hot-toast';
 // import { useToast } from "@/components/ui/use-toast"
 // import { CustomToast, CustomToastProvider } from './custom-toast'
 
@@ -62,18 +64,18 @@ export default function BlogsComingSoon() {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { toast } = useToast();
+  // const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     // Simulate API call
     await new Promise((resolve) => setTimeout(resolve, 1500));
+    setEmail("");
+    
+    toast.success("Thanks for your interest!, \nWe'll keep you updated on new features and launches.", toastTheme);
+
     setIsSubmitting(false);
-    toast({
-      title: "Thanks for your interest!",
-      description: "We'll notify you when our blog launches.",
-    })
 
     // toast({
     //   title: "Thanks for your interest!",
@@ -85,7 +87,6 @@ export default function BlogsComingSoon() {
     //     />
     //   ),
     // });
-    setEmail("");
   };
 
   return (

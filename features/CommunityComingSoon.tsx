@@ -21,6 +21,8 @@ import {
 import { Loader2, Users, MessageSquare, Rocket, Menu } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import toast from 'react-hot-toast';
+import { toastTheme } from "@/constants/toast-theme";
 
 const fadeIn = {
   initial: { opacity: 0, y: 20 },
@@ -65,9 +67,13 @@ export default function CommunityComingSoon() {
     setIsSubmitting(true);
     // Simulate API call
     await new Promise((resolve) => setTimeout(resolve, 1500));
+    setEmail("");
+    
+    toast.success("Thanks for your interest!, \nWe'll keep you updated on new features and launches.", toastTheme);
+
     setIsSubmitting(false);
     // Redirect to success page
-    window.location.href = "/community-success";
+    // window.location.href = "/community-success";
   };
 
   return (
