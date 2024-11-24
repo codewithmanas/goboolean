@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -38,6 +38,9 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { db } from "@/config/firebase.client.config";
+import { collection, DocumentData, getDocs } from "firebase/firestore";
+import { useRouter } from "next/navigation";
 // import { useToast } from "@/hooks/use-toast";
 
 const fadeIn = {
@@ -54,53 +57,63 @@ const stagger = {
   },
 };
 
-const quizzes = [
-  {
-    id: 1,
-    title: "JavaScript Fundamentals",
-    description:
-      "Test your knowledge of JavaScript basics, including variables, functions, and control flow.",
-    difficulty: "Beginner",
-    questions: 20,
-    timeLimit: "30 minutes",
-  },
-  {
-    id: 2,
-    title: "Advanced React Concepts",
-    description:
-      "Challenge yourself with questions on React hooks, context, and performance optimization.",
-    difficulty: "Advanced",
-    questions: 15,
-    timeLimit: "25 minutes",
-  },
-  {
-    id: 3,
-    title: "CSS Layout Mastery",
-    description:
-      "Prove your skills in CSS layout techniques, including flexbox and grid.",
-    difficulty: "Intermediate",
-    questions: 25,
-    timeLimit: "40 minutes",
-  },
-  {
-    id: 4,
-    title: "Python Data Structures",
-    description:
-      "Explore your understanding of Python's built-in data structures and their operations.",
-    difficulty: "Intermediate",
-    questions: 30,
-    timeLimit: "45 minutes",
-  },
-  {
-    id: 5,
-    title: "Web Security Essentials",
-    description:
-      "Test your knowledge of common web security vulnerabilities and best practices.",
-    difficulty: "Advanced",
-    questions: 20,
-    timeLimit: "35 minutes",
-  },
-];
+// interface quizProps {
+//   id: string;
+//   name: string;
+//   description: string;
+//   difficulty: string;
+//   noOfQuestions: number;
+//   timeLimitInMinutes: number;
+//   slug: string;
+// }
+
+// const quizzes = [
+//   {
+//     id: 1,
+//     title: "JavaScript Fundamentals",
+//     description:
+//       "Test your knowledge of JavaScript basics, including variables, functions, and control flow.",
+//     difficulty: "Beginner",
+//     questions: 20,
+//     timeLimit: "30 minutes",
+//   },
+//   {
+//     id: 2,
+//     title: "Advanced React Concepts",
+//     description:
+//       "Challenge yourself with questions on React hooks, context, and performance optimization.",
+//     difficulty: "Advanced",
+//     questions: 15,
+//     timeLimit: "25 minutes",
+//   },
+//   {
+//     id: 3,
+//     title: "CSS Layout Mastery",
+//     description:
+//       "Prove your skills in CSS layout techniques, including flexbox and grid.",
+//     difficulty: "Intermediate",
+//     questions: 25,
+//     timeLimit: "40 minutes",
+//   },
+//   {
+//     id: 4,
+//     title: "Python Data Structures",
+//     description:
+//       "Explore your understanding of Python's built-in data structures and their operations.",
+//     difficulty: "Intermediate",
+//     questions: 30,
+//     timeLimit: "45 minutes",
+//   },
+//   {
+//     id: 5,
+//     title: "Web Security Essentials",
+//     description:
+//       "Test your knowledge of common web security vulnerabilities and best practices.",
+//     difficulty: "Advanced",
+//     questions: 20,
+//     timeLimit: "35 minutes",
+//   },
+// ];
 
 const navItems = [
   {
@@ -127,36 +140,49 @@ export default function QuizzesPage() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   // const [email, setEmail] = useState("");
   // const [isSubmitting, setIsSubmitting] = useState(false);
+  const [quizzes, setQuizzes] = useState<DocumentData[]>([]);
 
+  useEffect(() => {
+      const fetchQuizTopics = async () => {
+          const collectionRef = collection(db, "quizTopics"); // Replace with your collection name
+        try { // Replace with actual API call
+          const snapshot = await getDocs(collectionRef);
+
+          // Map through documents and return only their data
+          const documents = snapshot.docs.map((doc) => doc.data()); 
+
+          // Convert the documents into an array of data
+          // const documents = snapshot.docs.map((doc) => ({
+          //   id: doc.id, // Include document ID if needed
+          //   ...doc.data(), // Spread the document's data
+          // }));
+
+          console.log("Fetched Documents:", documents);
+
+          setQuizzes(documents);
+        } catch (error) { 
+          console.error("Error fetching documents: ", error);
+        }
+    };  
+
+     fetchQuizTopics(); // Fetch quizzes on component mount
+  }, [])
+    
   // const { toast } = useToast();
+  const router = useRouter();
 
   const filteredQuizzes = quizzes.filter(
     (quiz) =>
-      quiz.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      quiz.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       quiz.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
       quiz.difficulty.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const handleQuizStart = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setIsDialogOpen(true);
-  };
+  const handleQuizStart = (slug: string) => {
+    // setIsDialogOpen(true);
+    router.push(`/quiz/${slug}`);
 
-  // const handleNotifySubmit = async (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   setIsSubmitting(true);
-  //   // Here you would typically send the email to your backend
-  //   // Simulate API call
-  //   await new Promise((resolve) => setTimeout(resolve, 1500));
-  //   setIsSubmitting(false);
-  //   toast({
-  //     title: "Thanks for your interest!",
-  //     description: "We'll keep you updated on launch of quizzes.",
-  //   });
-  //   console.log("Notify email:", email);
-  //   setEmail("");
-  //   setIsDialogOpen(false);
-  // };
+  };
 
   return (
     <div className="min-h-screen bg-blue-950 text-white">
@@ -261,7 +287,7 @@ export default function QuizzesPage() {
               >
                 <CardHeader>
                   <CardTitle className="text-xl text-blue-300">
-                    {quiz.title}
+                    {quiz.name}
                   </CardTitle>
                   <CardDescription className="text-blue-200">
                     <span className="flex items-center">
@@ -273,16 +299,16 @@ export default function QuizzesPage() {
                   <p className="text-blue-100 mb-4">{quiz.description}</p>
                   <div className="flex justify-between text-sm text-blue-200">
                     <span className="flex items-center">
-                      <BarChart className="mr-1 h-4 w-4" /> {quiz.questions}{" "}
+                      <BarChart className="mr-1 h-4 w-4" /> {quiz.noOfQuestions}{" "}
                       questions
                     </span>
                     <span className="flex items-center">
-                      <Clock className="mr-1 h-4 w-4" /> {quiz.timeLimit}
+                      <Clock className="mr-1 h-4 w-4" /> {quiz.timeLimitInMinutes}{" "}{"minutes"}
                     </span>
                   </div>
                 </CardContent>
                 <CardFooter>
-                  <Button className="w-full bg-blue-500 hover:bg-blue-600" onClick={handleQuizStart}>
+                  <Button className="w-full bg-blue-500 hover:bg-blue-600" onClick={() => handleQuizStart(quiz.slug)}>
                     Start Quiz <ChevronRight className="ml-2 h-4 w-4" />
                   </Button>
                 </CardFooter>
