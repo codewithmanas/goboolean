@@ -3,6 +3,14 @@ import DynamicQuiz from "@/features/DynamicQuiz";
 import { collection, doc, DocumentData, getDoc, getDocs } from "firebase/firestore";
 import React from "react";
 
+/*
+  TODO: need optimization for quiz topics and quiz questions
+  - This is all about data fetching on build time or request time
+  - 1. Fetch quiz topics on build time
+  - 2. Fetch quiz questions on request time
+  - 3. Cache quiz topics and quiz questions
+  - 4. Use React Query for data fetching (This is not recommended for this quiz feature)
+*/
 
 export interface QuizQuestion {
   id: string; // ID of the question
