@@ -1,6 +1,6 @@
 import { db } from "@/config/firebase.client.config";
 import DynamicQuiz from "@/features/DynamicQuiz";
-import { collection, doc, DocumentData, getDocs } from "firebase/firestore";
+import { collection, doc, DocumentData, getDoc, getDocs } from "firebase/firestore";
 import React from "react";
 
 
@@ -42,6 +42,24 @@ const fetchAllQuizQuestions = async (quizTopic: string) => {
       }
 }
 
+const fetchQuizTimer = async (quizTopic: string) => {
+  try {
+    const docRef = doc(db, "quizTopics", `${quizTopic}`); // Reference the specific document inside the parent collection
+    const docSnap = await getDoc(docRef); // Fetch the document snapshot
+
+    if (docSnap.exists()) {
+      const data = docSnap.data(); // Get the document data
+      const quizTimer = data?.timeLimitInMinutes; // Access the timeLimitInMinutes field
+      return quizTimer;
+    } else {
+      console.log("No such document!");
+    }
+    
+  } catch (error) {
+    console.log("Error fetching quiz timer: ", error);
+  }
+} 
+
 const QuizAppPage = async ({
   params,
 }: {
@@ -50,10 +68,11 @@ const QuizAppPage = async ({
   const slug = (await params).slug;
 
   const questionsSet: QuizQuestion[] = await fetchAllQuizQuestions(slug) as QuizQuestion[]; // Fetch quiz questions for the specific slug
+  const quizTimer = await fetchQuizTimer(slug); // Fetch quiz timer for the specific slug
 
   return (
     <div>
-      <DynamicQuiz questionsSet={questionsSet} />
+      <DynamicQuiz questionsSet={questionsSet} quizTimer={quizTimer} />
     </div>
   );
 };
