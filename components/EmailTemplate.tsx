@@ -112,7 +112,7 @@ export const EmailTemplate = () => (
                   color: '#8898aa',
                 }}
               >
-                Bhubaneswar, Odisha, India
+                © {new Date().getFullYear()} goboolean.in All rights reserved.
               </p>
             </td>
           </tr>
