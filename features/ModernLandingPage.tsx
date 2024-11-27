@@ -4,25 +4,12 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
 // import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 // import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 // import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { 
-  // Code2, 
-  ChevronRight, 
-  Menu, 
-  Loader2 } from "lucide-react";
-import Link from "next/link";
+import { ChevronRight, Loader2 } from "lucide-react";
 // import { useToast } from "@/hooks/use-toast";
 import toast from 'react-hot-toast';
-import Image from "next/image";
 import { toastTheme } from "@/constants/toast-theme";
 
 const fadeIn = {
@@ -39,29 +26,10 @@ const stagger = {
   },
 };
 
-const navItems = [
-  {
-    title: "Blogs",
-    path: "/blogs",
-  },
-  {
-    title: "Quizzes",
-    path: "/quiz",
-  },
-  {
-    title: "Projects",
-    path: "/projects",
-  },
-  {
-    title: "Community",
-    path: "/community",
-  },
-];
 
 export default function ModernLandingPage() {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // const { toast } = useToast();
 
@@ -116,87 +84,9 @@ export default function ModernLandingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-blue-950 text-white">
+    <div>
       {/* <div className="min-h-screen bg-gradient-to-br from-blue-900 via-indigo-900 to-purple-900 text-white"> */}
       {/* Header */}
-      <motion.header
-        className="container mx-auto py-6 px-4 flex justify-between items-center"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <div className="flex items-center space-x-2">
-          {/* <Code2 className="h-8 w-6 text-blue-400" /> */}
-          <Image src="/icon-dark.svg" alt="GoBoolean" width={32} height={32} />
-
-          <span 
-            className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400"
-            style={{ fontFamily: "Reem Kufi" }}
-          >
-            GoBoolean
-          </span>
-        </div>
-
-        <nav className="hidden md:block">
-          <ul className="flex space-x-6">
-            {navItems.map((item, index) => (
-              <motion.li
-                key={item.title}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <Link
-                  // target="_blank"
-                  rel="noopener noreferrer"
-                  href={`${item.path}`}
-                  className="hover:text-blue-300 transition-colors"
-                >
-                  {item.title}
-                </Link>
-              </motion.li>
-            ))}
-          </ul>
-        </nav>
-
-        <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
-          <SheetTrigger asChild>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="md:hidden"
-              aria-label="Open menu"
-            >
-              <Menu className="h-6 w-6" />
-            </Button>
-          </SheetTrigger>
-          <SheetContent
-            side="right"
-            className="w-[300px] sm:w-[400px] bg-blue-900"
-          >
-            <SheetHeader>
-              <SheetTitle className="text-2xl font-bold text-blue-300">
-                Menu
-              </SheetTitle>
-            </SheetHeader>
-            <nav className="mt-6">
-              <ul className="space-y-4">
-                {navItems.map((item) => (
-                  <li key={item.title}>
-                    <Link
-                      href={`${item.path}`}
-                      className="block py-2 px-4 text-lg text-blue-100 hover:bg-blue-800 rounded transition-colors"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      {item.title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          </SheetContent>
-        </Sheet>
-      </motion.header>
 
       {/* Hero Section */}
       <motion.section
@@ -334,38 +224,6 @@ export default function ModernLandingPage() {
       </motion.section> */}
 
       {/* Footer */}
-      <motion.footer
-        className="bg-blue-950/50 py-4 sm:py-6"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.3 }}
-      >
-        {/* <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
-          <div className="flex items-center space-x-2 mb-4 md:mb-0">
-            <Code2 className="h-6 w-6 text-blue-400" />
-            <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
-              GoBoolean
-            </span>
-          </div>
-          <nav>
-            <ul className="flex flex-wrap justify-center md:justify-end space-x-6">
-              {["About", "Contact", "Twitter", "GitHub"].map((item) => (
-                <li key={item}>
-                  <a
-                    href={`#${item.toLowerCase()}`}
-                    className="hover:text-blue-300 transition-colors"
-                  >
-                    {item}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </div> */}
-        <div className="container mx-auto mt-6 text-center text-sm text-blue-300">
-          © {new Date().getFullYear()} goboolean.in All rights reserved.
-        </div>
-      </motion.footer>
     </div>
   );
 }

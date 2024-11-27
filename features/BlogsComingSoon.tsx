@@ -11,17 +11,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-    Sheet,
-    SheetContent,
-    SheetHeader,
-    SheetTitle,
-    SheetTrigger,
-  } from "@/components/ui/sheet";
-import { Loader2, BookOpen, Menu } from "lucide-react";
-import Link from "next/link";
+import { Loader2, BookOpen } from "lucide-react";
 // import { useToast } from "@/hooks/use-toast";
-import Image from "next/image";
 import { toastTheme } from "@/constants/toast-theme";
 import toast from 'react-hot-toast';
 // import { useToast } from "@/components/ui/use-toast"
@@ -41,29 +32,10 @@ const stagger = {
   },
 };
 
-const navItems = [
-    {
-      title: "Blogs",
-      path: "/blogs",
-    },
-    {
-      title: "Quizzes",
-      path: "/quiz",
-    },
-    {
-      title: "Projects",
-      path: "/projects",
-    },
-    {
-      title: "Community",
-      path: "/community",
-    },
-  ];
 
 export default function BlogsComingSoon() {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   // const { toast } = useToast();
 
 // TODO: needs improvement and optimization
@@ -109,72 +81,7 @@ const handleSubmit = async (e: React.FormEvent) => {
 
   return (
     // <CustomToastProvider>
-      <div className="min-h-screen bg-blue-950 text-white">
-        <header className="container mx-auto py-6 px-4 flex justify-between items-center">
-          <Link href="/" className="flex items-center space-x-2">
-          <Image src="/icon-dark.svg" alt="GoBoolean" width={32} height={32} />
-          <span 
-            className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400"
-            style={{ fontFamily: "Reem Kufi" }}
-          >
-            GoBoolean
-          </span>
-          </Link>
-
-          <nav className="hidden md:block">
-            <ul className="flex space-x-6">
-              {navItems.map((item) => (
-                <li key={item.title}>
-                  <Link
-                    href={`${item.path}`}
-                    className="hover:text-blue-300 transition-colors"
-                  >
-                    {item.title}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
-          <SheetTrigger asChild>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="md:hidden"
-              aria-label="Open menu"
-            >
-              <Menu className="h-6 w-6" />
-            </Button>
-          </SheetTrigger>
-          <SheetContent
-            side="right"
-            className="w-[300px] sm:w-[400px] bg-blue-900"
-          >
-            <SheetHeader>
-              <SheetTitle className="text-2xl font-bold text-blue-300">
-                Menu
-              </SheetTitle>
-            </SheetHeader>
-            <nav className="mt-6">
-              <ul className="space-y-4">
-                {navItems.map((item) => (
-                  <li key={item.title}>
-                    <Link
-                      href={`${item.path}`}
-                      className="block py-2 px-4 text-lg text-blue-100 hover:bg-blue-800 rounded transition-colors"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      {item.title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          </SheetContent>
-        </Sheet>
-
-        </header>
+      <div>
 
         <main className="container mx-auto py-12 px-4">
           <motion.div
@@ -253,11 +160,6 @@ const handleSubmit = async (e: React.FormEvent) => {
           </motion.div>
         </main>
 
-        <footer className="bg-blue-950/50 py-10 mt-12 px-4">
-          <div className="container mx-auto text-center text-sm text-blue-300">
-            © {new Date().getFullYear()} goboolean.in All rights reserved.
-          </div>
-        </footer>
       </div>
     // </CustomToastProvider>
   );

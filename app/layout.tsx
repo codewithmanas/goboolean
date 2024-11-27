@@ -4,6 +4,8 @@ import "../styles/globals.css";
 // import Script from "next/script";
 // import { Toaster } from "@/components/ui/toaster";
 import { Toaster } from 'react-hot-toast';
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title:
@@ -132,8 +134,12 @@ export default function RootLayout({
           ></iframe>
         </noscript> */}
         {/* End Google Tag Manager (noscript) */}
-        {children}
-        <Toaster />
+        <div className="min-h-screen bg-blue-950 text-white">
+          <Header />
+          {children}
+          <Toaster />
+          <Footer />
+        </div>
       </body>
     </html>
   );

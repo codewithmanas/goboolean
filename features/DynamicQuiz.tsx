@@ -5,50 +5,12 @@ import React from "react";
 import { useState, useEffect } from "react";
 // import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { Timer, AlertCircle, Menu } from "lucide-react";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
+import { Timer, AlertCircle } from "lucide-react";
 import { motion } from "framer-motion";
-import Link from "next/link";
-import Image from "next/image";
 import ProgressBar from "@/components/ProgressBar";
-
-
-const navItems = [
-  {
-    title: "Blogs",
-    path: "/blogs",
-  },
-  {
-    title: "Quizzes",
-    path: "/quiz",
-  },
-  {
-    title: "Projects",
-    path: "/projects",
-  },
-  {
-    title: "Community",
-    path: "/community",
-  },
-];
 
 /*
   TODO: need optimization
@@ -65,7 +27,6 @@ const DynamicQuiz = ({ questionsSet, quizTimer }: { questionsSet: QuizQuestion[]
   const [showResults, setShowResults] = useState(false);
   const [timeLeft, setTimeLeft] = useState(quizTimer * 60); // quizTimer in minutes
   const [isTimeUp, setIsTimeUp] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   // const [answerChecked, setAnswerChecked] = useState(false);
 
   useEffect(() => {
@@ -98,8 +59,6 @@ const DynamicQuiz = ({ questionsSet, quizTimer }: { questionsSet: QuizQuestion[]
     return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
   };
 
-  // console.log("selectedAnswer", selectedAnswer);
-
   const handleNext = () => {
     // Check if answer is correct
     if (selectedAnswer === questionsSet[currentQuestion].correctAnswer) {
@@ -117,107 +76,17 @@ const DynamicQuiz = ({ questionsSet, quizTimer }: { questionsSet: QuizQuestion[]
 
   // console.log("Questions Set:", questionsSet);
 
-  if (showResults || isTimeUp) {
-    return (
-      <AlertDialog open>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>
-              {isTimeUp ? "Time's Up!" : "Quiz Completed!"}
-            </AlertDialogTitle>
-            <AlertDialogDescription>
-              Your score: {score} out of {questionsSet.length}
-              <br />
-              Percentage: {((score / questionsSet.length) * 100).toFixed(1)}%
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogAction asChild>
-              <Button onClick={() => (window.location.href = "/quiz")}>
-                Back to Quizzes
-              </Button>
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-    );
-  }
 
   return (
-    <div className="bg-blue-950 text-white min-h-screen">
-      <header className="container mx-auto py-6 px-4 flex justify-between items-center">
-        <Link href="/" className="flex items-center space-x-2">
-        <Image src="/icon-dark.svg" alt="GoBoolean" width={32} height={32} />
-        <span 
-          className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400"
-          style={{ fontFamily: "Reem Kufi" }}
-        >
-          GoBoolean
-        </span>
-        </Link>
-
-        <nav className="hidden md:block">
-          <ul className="flex space-x-6">
-            {navItems.map((item) => (
-              <li key={item.title}>
-                <Link
-                  href={`${item.path}`}
-                  className="hover:text-blue-300 transition-colors"
-                >
-                  {item.title}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
-          <SheetTrigger asChild>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="md:hidden"
-              aria-label="Open menu"
-            >
-              <Menu className="h-6 w-6" />
-            </Button>
-          </SheetTrigger>
-          <SheetContent
-            side="right"
-            className="w-[300px] sm:w-[400px] bg-blue-900"
-          >
-            <SheetHeader>
-              <SheetTitle className="text-2xl font-bold text-blue-300">
-                Menu
-              </SheetTitle>
-            </SheetHeader>
-            <nav className="mt-6">
-              <ul className="space-y-4">
-                {navItems.map((item) => (
-                  <li key={item.title}>
-                    <Link
-                      href={`${item.path}`}
-                      className="block py-2 px-4 text-lg text-blue-100 hover:bg-blue-800 rounded transition-colors"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      {item.title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          </SheetContent>
-        </Sheet>
-      </header>
-
+    <div>
     <main className="container mx-auto py-12 px-4">
-      <motion.div
+      {!(isTimeUp || showResults) && <motion.div
         className="mx-auto max-w-3xl"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="mb-8 flex items-center justify-between">
+        <div className="mb-4 sm:mb-8 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Timer className="h-5 w-5" />
             <span className="font-mono text-lg">{formatTime(timeLeft)}</span>
@@ -298,14 +167,40 @@ const DynamicQuiz = ({ questionsSet, quizTimer }: { questionsSet: QuizQuestion[]
               <span>Less than 5 minutes remaining!</span>
             </div>
           )}
-      </motion.div>
+      </motion.div>}
+
+      {
+        (isTimeUp || showResults) && (
+          <motion.div
+          className="mx-auto max-w-3xl"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.3 }}
+        >
+          <Card className="bg-white/10 border-white/20 hover:bg-white/20 transition-all duration-300">
+              <CardHeader>
+                <div>
+                  <h2 className="text-xl font-semibold text-blue-300 text-center">
+                  {isTimeUp ? "Time's Up!" : "Quiz Completed!"}
+                  </h2>
+                </div>
+              </CardHeader>
+            <CardContent>
+              <div className="p-2 text-center text-blue-300">Your score: {score} out of {questionsSet.length}<br />
+                    Percentage: {((score / questionsSet.length) * 100).toFixed(1)}%
+              </div>
+            </CardContent>
+            <CardFooter className="flex justify-center">
+                <Button onClick={() => (window.location.href = "/quiz")}>
+                  Back to Quizzes
+                </Button>
+            </CardFooter>
+          </Card>
+        </motion.div>
+        )
+      }
     </main>
 
-      <footer className="bg-blue-950/50 py-4 sm:py-6 mt-12 px-4">
-        <div className="container mx-auto text-center text-sm text-blue-300">
-          © {new Date().getFullYear()} goboolean.in All rights reserved.
-        </div>
-      </footer>
     </div>
   );
 };
