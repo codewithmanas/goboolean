@@ -28,7 +28,7 @@ export const metadata: Metadata = {
       { url: "/icon-dark.svg", type: "image/svg+xml" },
       { url: "/icon-dark.png", type: "image/png", sizes: "32x32" },
     ],
-    shortcut: "/icon-dark.png",
+    shortcut: "/icon-dark.jpeg",
   },
   openGraph: {
     title:
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     siteName: "GoBoolean",
     images: [
       {
-        url: "/icon-dark.png",
+        url: "/icon-dark.jpeg",
         width: 1200,
         height: 630,
         alt: "GoBoolean Logo",
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
       "GoBoolean - A Platform To Learn Web Development, Programming, AI and More",
     description:
       "Join GoBoolean to explore web development, programming, AI, and tech tips.",
-    images: ["/icon-dark.png"],
+    images: ["/icon-dark.jpeg"],
     site: "@goboolean",
     creator: "@goboolean",
   },
