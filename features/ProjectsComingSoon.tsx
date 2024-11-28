@@ -84,7 +84,9 @@ const handleSubmit = async (e: React.FormEvent) => {
           className="max-w-4xl mx-auto space-y-12"
         >
           <motion.div variants={fadeIn} className="text-center space-y-4">
-            <h1 className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+            <h1 className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400"
+              style={{ WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent"}}
+            >
               GoBoolean Projects
             </h1>
             <h2 className="text-3xl font-semibold text-blue-200">

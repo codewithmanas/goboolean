@@ -80,6 +80,7 @@ export default function QuizTopicsListing({quizzes}: {quizzes: quizProps[]}) {
         >
           <motion.h1
             className="text-4xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400"
+            style={{ WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent"}}
             variants={fadeIn}
           >
             GoBoolean Quizzes
