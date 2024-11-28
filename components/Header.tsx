@@ -50,7 +50,7 @@ const Header = () => {
 
       <span 
         className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400"
-        style={{ fontFamily: "Reem Kufi" }}
+        style={{ fontFamily: "Reem Kufi", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}
       >
         GoBoolean
       </span>
