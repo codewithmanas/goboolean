@@ -97,6 +97,7 @@ export default function ModernLandingPage() {
       >
         <motion.h1
           className="text-5xl sm:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400"
+          style={{ WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent"}}
           variants={fadeIn}
         >
           Welcome to GoBoolean
