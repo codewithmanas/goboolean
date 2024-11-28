@@ -92,7 +92,9 @@ const handleSubmit = async (e: React.FormEvent) => {
           >
             <motion.div variants={fadeIn} className="text-center space-y-4">
               <BookOpen className="h-24 w-24 text-blue-400 mx-auto" />
-              <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+              <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400"
+                style={{ WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent"}}
+              >
                 GoBoolean Blogs
               </h1>
               <h2 className="text-3xl font-semibold text-blue-200">
