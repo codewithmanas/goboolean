@@ -27,8 +27,9 @@ import {
   Clock,
   BarChart,
 } from "lucide-react";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { quizProps } from "@/app/quiz/page";
+import Link from "next/link";
 // import { useToast } from "@/hooks/use-toast";
 
 const fadeIn = {
@@ -54,7 +55,7 @@ export default function QuizTopicsListing({quizzes}: {quizzes: quizProps[]}) {
 
     
   // const { toast } = useToast();
-  const router = useRouter();
+  // const router = useRouter();
 
   const filteredQuizzes = quizzes.filter(
     (quiz) =>
@@ -63,11 +64,11 @@ export default function QuizTopicsListing({quizzes}: {quizzes: quizProps[]}) {
       quiz.difficulty.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const handleQuizStart = (slug: string) => {
-    // setIsDialogOpen(true);
-    router.push(`/quiz/${slug}`);
+  // const handleQuizStart = (slug: string) => {
+  //   // setIsDialogOpen(true);
+  //   router.push(`/quiz/${slug}`);
 
-  };
+  // };
 
   return (
     <div>
@@ -129,9 +130,11 @@ export default function QuizTopicsListing({quizzes}: {quizzes: quizProps[]}) {
                   </div>
                 </CardContent>
                 <CardFooter>
-                  <Button className="w-full bg-blue-500 hover:bg-blue-600" onClick={() => handleQuizStart(quiz.slug)}>
-                    Start Quiz <ChevronRight className="ml-2 h-4 w-4" />
-                  </Button>
+                  <Link href={`/quiz/${quiz.slug}`} className="w-full">
+                    <Button className="w-full bg-blue-500 hover:bg-blue-600">
+                      Start Quiz <ChevronRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </Link>
                 </CardFooter>
               </Card>
             ))}
