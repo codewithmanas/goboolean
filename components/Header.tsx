@@ -14,6 +14,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
 
 
 const navItems = [
@@ -56,7 +57,7 @@ const Header = () => {
       </span>
     </Link>
 
-    <nav className="hidden md:block">
+    <nav className="hidden md:flex md: items-center space-x-4">
       <ul className="flex space-x-6">
         {navItems.map((item, index) => (
           <motion.li
@@ -76,6 +77,20 @@ const Header = () => {
           </motion.li>
         ))}
       </ul>
+          <div className="flex items-center space-x-4">
+            <SignedOut>
+              <div className="hover:text-blue-300 transition-colors text-base">
+                <SignInButton />
+              </div>
+              <div className="hover:text-blue-300 transition-colors text-base">
+                <SignUpButton />
+              </div>
+            </SignedOut>
+            
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+          </div>
     </nav>
 
     <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
