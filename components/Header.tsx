@@ -58,7 +58,7 @@ const Header = () => {
     </Link>
 
     <nav className="hidden md:flex md: items-center space-x-4">
-      <ul className="flex space-x-6">
+      <ul className="flex space-x-6 items-center">
         {navItems.map((item, index) => (
           <motion.li
             key={item.title}
@@ -76,21 +76,51 @@ const Header = () => {
             </Link>
           </motion.li>
         ))}
-      </ul>
-          <div className="flex items-center space-x-4">
+
+        <motion.li
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 4 * 0.1 }}                      
+            >
             <SignedOut>
-              <div className="hover:text-blue-300 transition-colors text-base">
-                <SignInButton />
-              </div>
-              <div className="hover:text-blue-300 transition-colors text-base">
-                <SignUpButton />
-              </div>
+              <SignInButton>
+                <div 
+                className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700 cursor-pointer"
+                // className="hover:text-blue-300 transition-colors text-base"
+                >
+                  Sign In
+                </div>
+              </SignInButton>
             </SignedOut>
-            
+          </motion.li>
+
+        <motion.li
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 5 * 0.1 }}                      
+            >
+            <SignedOut>
+              <SignUpButton>
+                <div 
+                className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700 cursor-pointer"
+                // className="hover:text-blue-300 transition-colors text-base"
+                >
+                  Sign Up
+                </div>
+              </SignUpButton>
+            </SignedOut>
+          </motion.li>
+
             <SignedIn>
-              <UserButton />
+              <motion.li
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 4 * 0.1 }}
+              >
+                <UserButton />
+              </motion.li>
             </SignedIn>
-          </div>
+      </ul>
     </nav>
 
     <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
