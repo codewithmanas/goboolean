@@ -1,0 +1,30 @@
+# Ignore build output
+.next/
+out/
+dist/
+
+# Ignore dependencies
+node_modules/
+
+# Ignore env files
+.env
+.env.*
+
+# Ignore public assets
+public/
+
+# Ignore lockfile and package.json (never format these)
+package.json
+pnpm-lock.yaml
+
+# Ignore configs (we don’t want ESLint on them)
+package.json
+*.config.js
+*.config.mjs
+*.config.ts
+
+# Ignore type generation
+*.d.ts
+
+# Git folders
+.git/
